@@ -25,6 +25,12 @@ namespace RestApiClientLibrary
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddSwaggerGen(x=> {
+                x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { 
+                    Title = "Example Rest API Client Library",
+                    Version = "v1"
+                });
+            });
             services.AddControllers();
         }
 
@@ -44,6 +50,12 @@ namespace RestApiClientLibrary
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(x=> {
+                x.SwaggerEndpoint("v1/swagger.json", "Example Rest API Client Library");
+            });
+
         }
     }
 }
